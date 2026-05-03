@@ -6,11 +6,12 @@ info:
   - invitations
 http:
   method: GET
-  url: '{{baseUrl}}/api/v1/invitations/:token/'
+  url: '{{baseUrl}}/api/v1/invitations/:identifier/'
   params:
-  - name: token
+  - name: identifier
     value: ''
     type: path
+    description: Invitation token (URL-safe) or short 8-char code.
   auth: none
 settings:
   encodeUrl: true
@@ -20,10 +21,10 @@ settings:
 examples:
 - name: 200 Response
   request:
-    url: '{{baseUrl}}/api/v1/invitations/:token/'
+    url: '{{baseUrl}}/api/v1/invitations/:identifier/'
     method: GET
     params:
-    - name: token
+    - name: identifier
       value: ''
       type: path
   response:
@@ -36,15 +37,25 @@ examples:
       type: json
       data: |-
         {
+          "code": "",
           "project_name": "",
-          "role": "owner",
+          "role": "client",
           "role_label": "",
           "job_title": "",
           "invited_by_name": "",
           "is_usable": false,
+          "requires_registration": true,
+          "invitee_email": "",
+          "invitee_phone": null,
+          "invitee_first_name": "",
+          "invitee_last_name": "",
           "expires_at": ""
         }
-docs: 'Public view: see invitation info before accepting. No auth required.'
+docs: |-
+  Public lookup. Resolves an invitation by either the long URL-safe token
+  (deep-link) or the short 8-char code (manual entry). Mobile uses the
+  `requires_registration` flag to decide between accept (existing user) and
+  redeem (new user). No auth required.
 script:
   tests: |-
     test("Status is 200", function() {

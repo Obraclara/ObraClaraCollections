@@ -28,7 +28,12 @@ examples:
           "last_name": "",
           "phone_number": "",
           "profile_image": "",
-          "date_of_birth": ""
+          "date_of_birth": "",
+          "preferences": {
+            "notifications_enabled": true,
+            "language": "es",
+            "timezone": "America/Mexico_City"
+          }
         }
   response:
     status: 200
@@ -49,6 +54,11 @@ examples:
           "profile_image": "",
           "date_of_birth": "",
           "role": "",
+          "preferences": {
+            "notifications_enabled": true,
+            "language": "es",
+            "timezone": "America/Mexico_City"
+          },
           "created": ""
         }
 script:

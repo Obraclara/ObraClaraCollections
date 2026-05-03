@@ -3,57 +3,69 @@ info:
   type: http
   seq: 4
   tags:
-  - progress
+    - progress
+
 http:
   method: POST
-  url: '{{baseUrl}}/api/v1/projects/:project_pk/progress/'
+  url: "{{baseUrl}}/api/v1/projects/:project_pk/progress/"
   params:
-  - name: project_pk
-    value: ''
-    type: path
+    - name: project_pk
+      value: "{{project_pk}}"
+      type: path
   body:
     type: json
+    data: |-
+      {
+        "stage": "ae8d8fa9-ef7c-4bf7-9ceb-e50a387ae40c",
+        "description": "Testin Nots",
+        "date": "2026-02-2",
+        "percentage_delta": "1",
+        "visible_to_client": true
+      }
   auth: inherit
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
 examples:
-- name: 201 Response
-  request:
-    url: '{{baseUrl}}/api/v1/projects/:project_pk/progress/'
-    method: POST
-    params:
-    - name: project_pk
-      value: ''
-      type: path
-    body:
-      type: json
-      data: |-
-        {
-          "stage": "",
-          "description": "",
-          "date": "",
-          "percentage_delta": "",
-          "visible_to_client": false
-        }
-  response:
-    status: 201
-    statusText: Created
-    headers:
-    - name: Content-Type
-      value: application/json
-    body:
-      type: json
-      data: |-
-        {
-          "stage": "",
-          "description": "",
-          "date": "",
-          "percentage_delta": "",
-          "visible_to_client": false
-        }
+  - name: 201 Response
+    request:
+      url: "{{baseUrl}}/api/v1/projects/:project_pk/progress/"
+      method: POST
+      params:
+        - name: project_pk
+          value: ""
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "stage": "",
+            "description": "",
+            "date": "",
+            "percentage_delta": "",
+            "visible_to_client": false
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "stage": "",
+            "description": "",
+            "date": "",
+            "percentage_delta": "",
+            "visible_to_client": false
+          }
+
 docs: Use InputSerializer for validation, DetailSerializer for response.
 script:
   tests: |-

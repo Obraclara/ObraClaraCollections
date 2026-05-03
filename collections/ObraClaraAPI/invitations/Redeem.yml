@@ -1,0 +1,116 @@
+info:
+  name: Redeem
+  type: http
+  seq: 6
+  tags:
+  - invitations
+http:
+  method: POST
+  url: '{{baseUrl}}/api/v1/invitations/:identifier/redeem/'
+  params:
+  - name: identifier
+    value: ''
+    type: path
+    description: Invitation token (URL-safe) or short 8-char code.
+  body:
+    type: json
+  auth: none
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+examples:
+- name: 201 Response
+  request:
+    url: '{{baseUrl}}/api/v1/invitations/:identifier/redeem/'
+    method: POST
+    params:
+    - name: identifier
+      value: ''
+      type: path
+    body:
+      type: json
+      data: |-
+        {
+          "password": "",
+          "password_confirm": "",
+          "first_name": "",
+          "last_name": "",
+          "phone_number": "",
+          "profile_image": ""
+        }
+  response:
+    status: 201
+    statusText: Created
+    headers:
+    - name: Content-Type
+      value: application/json
+    body:
+      type: json
+      data: |-
+        {
+          "user": {
+            "id": "",
+            "email": "",
+            "username": "",
+            "first_name": "",
+            "last_name": "",
+            "phone_number": "",
+            "profile_image": "",
+            "date_of_birth": "",
+            "role": "",
+            "preferences": {
+              "notifications_enabled": true,
+              "language": "es",
+              "timezone": "America/Mexico_City"
+            },
+            "created": ""
+          },
+          "access": "",
+          "refresh": "",
+          "participant": {
+            "id": "",
+            "user": {
+              "id": "",
+              "email": "",
+              "first_name": "",
+              "last_name": "",
+              "phone_number": "",
+              "profile_image": ""
+            },
+            "role": "client",
+            "role_label": "",
+            "job_title": "",
+            "is_active": true,
+            "joined_at": ""
+          }
+        }
+docs: |-
+  Public endpoint. Creates a new user from the invitation's stored email and
+  accepts the invitation atomically. The invitee's email is taken from the
+  invitation and is NOT accepted as input. `phone_number` and `profile_image`
+  are optional (send as `multipart/form-data` if uploading the image).
+  Returns the new user's profile + JWT pair (`access`, `refresh`) so the
+  mobile can skip the login step + the resulting `participant` record.
+  Identifier may be the long URL-safe token (deep-link) or the short 8-char
+  code (manual entry). Raises 409 if the email already has an account, 410
+  if the invitation has expired.
+script:
+  post-response: |-
+    const body = res.getBody();
+    if (body.access) {
+      bru.setEnvVar("token", body.access);
+    }
+    if (body.refresh) {
+      bru.setEnvVar("refresh_token", body.refresh);
+    }
+  tests: |-
+    test("Status is 201", function() {
+      expect(res.getStatus()).to.equal(201);
+    });
+
+    test("Response has access token", function() {
+      const body = res.getBody();
+      expect(body.access).to.be.a("string");
+    });

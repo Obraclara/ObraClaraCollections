@@ -1,0 +1,72 @@
+info:
+  name: Resend
+  type: http
+  seq: 7
+  tags:
+  - invitations
+http:
+  method: POST
+  url: '{{baseUrl}}/api/v1/invitations/:identifier/resend/'
+  params:
+  - name: identifier
+    value: ''
+    type: path
+    description: Invitation token (URL-safe) or short 8-char code.
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+examples:
+- name: 204 Response
+  description: No response body
+  request:
+    url: '{{baseUrl}}/api/v1/invitations/:identifier/resend/'
+    method: POST
+    params:
+    - name: identifier
+      value: ''
+      type: path
+  response:
+    status: 204
+    statusText: No Content
+    body:
+      type: text
+      data: ''
+- name: 429 Rate Limited
+  description: Cooldown or daily cap hit.
+  request:
+    url: '{{baseUrl}}/api/v1/invitations/:identifier/resend/'
+    method: POST
+    params:
+    - name: identifier
+      value: ''
+      type: path
+  response:
+    status: 429
+    statusText: Too Many Requests
+    headers:
+    - name: Content-Type
+      value: application/json
+    body:
+      type: json
+      data: |-
+        {
+          "error": {
+            "status_code": 429,
+            "message": "Too many resend attempts. Please wait before retrying.",
+            "details": {}
+          }
+        }
+docs: |-
+  Resend the invitation email. Owner of the project or the original inviter
+  only. Identifier may be the long URL-safe token or the short 8-char code.
+  Rate-limited via cache: 5-minute cooldown between attempts and a daily
+  cap of 5 resends per invitation. Responds 204 on success, 429 if
+  rate-limited.
+script:
+  tests: |-
+    test("Status is 204", function() {
+      expect(res.getStatus()).to.equal(204);
+    });

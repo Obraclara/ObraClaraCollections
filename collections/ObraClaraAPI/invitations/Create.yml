@@ -14,7 +14,6 @@ http:
       type: path
   body:
     type: json
-    data: ""
   auth: inherit
 
 settings:
@@ -24,7 +23,7 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: 200 Response
+  - name: 201 Response (new invitation)
     request:
       url: "{{baseUrl}}/api/v1/projects/:project_pk/invitations/"
       method: POST
@@ -38,71 +37,113 @@ examples:
           {
             "role": "client",
             "job_title": "",
-            "invitee_email": "emaild@email.com"
+            "invitee_email": "",
+            "invitee_phone": "",
+            "invitee_first_name": "",
+            "invitee_last_name": ""
           }
     response:
-      status: 200
-      statusText: OK
+      status: 201
+      statusText: Created
       headers:
-        - name: date
-          value: Sat, 25 Apr 2026 00:20:21 GMT
-        - name: server
-          value: WSGIServer/0.2 CPython/3.14.3
-        - name: content-type
+        - name: Content-Type
           value: application/json
-        - name: vary
-          value: Accept, Accept-Language, origin
-        - name: allow
-          value: GET, POST, HEAD, OPTIONS
-        - name: x-frame-options
-          value: DENY
-        - name: content-length
-          value: "703"
-        - name: content-language
-          value: es
-        - name: x-content-type-options
-          value: nosniff
-        - name: referrer-policy
-          value: same-origin
-        - name: cross-origin-opener-policy
-          value: same-origin
       body:
         type: json
         data: |-
           {
-            "id": "40fdab11-9a60-44fd-beca-0758b666d370",
-            "token": "0gSnwy2Y8XXgYYnS9H5kyaTp4UzCcJTe841pLfpYXsI",
-            "code": "BNNKNYWG",
-            "project": "e48179b7-7bd2-4da9-8b69-51323a3757ab",
-            "project_name": "Xibal",
+            "id": "",
+            "token": "",
+            "code": "",
+            "project": "",
+            "project_name": "",
             "role": "client",
-            "role_label": "Client",
+            "role_label": "",
             "job_title": "",
-            "invitee_email": "emaild@email.com",
+            "invitee_email": "",
             "invitee_phone": null,
             "invitee_first_name": "",
             "invitee_last_name": "",
             "invited_by": {
-              "id": "ccf42640-10d2-48d3-8d3a-b8ad5f804ca1",
-              "email": "admin@admin.com",
-              "first_name": "admin",
-              "last_name": "admin",
-              "profile_image": "/media/users/avatars/profile.jpg"
+              "id": "",
+              "email": "",
+              "first_name": "",
+              "last_name": "",
+              "profile_image": ""
             },
             "status": "pending",
             "accepted_by": null,
             "is_expired": false,
             "is_usable": true,
-            "expires_at": "2026-04-26T06:19:51.557044-06:00",
-            "created": "2026-04-24T18:19:51.556968-06:00",
+            "expires_at": "",
+            "created": "",
+            "reused": false
+          }
+  - name: 200 Response (reused pending invitation)
+    request:
+      url: "{{baseUrl}}/api/v1/projects/:project_pk/invitations/"
+      method: POST
+      params:
+        - name: project_pk
+          value: "{{project_pk}}"
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "role": "client",
+            "invitee_email": ""
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "",
+            "token": "",
+            "code": "",
+            "project": "",
+            "project_name": "",
+            "role": "client",
+            "role_label": "",
+            "job_title": "",
+            "invitee_email": "",
+            "invitee_phone": null,
+            "invitee_first_name": "",
+            "invitee_last_name": "",
+            "invited_by": {
+              "id": "",
+              "email": "",
+              "first_name": "",
+              "last_name": "",
+              "profile_image": ""
+            },
+            "status": "pending",
+            "accepted_by": null,
+            "is_expired": false,
+            "is_usable": true,
+            "expires_at": "",
+            "created": "",
             "reused": true
           }
 
-docs: List project invitations or create a new one. OWNER only.
+docs: |-
+  Create a project invitation. OWNER only. Idempotent on
+  `(project, invitee_email/phone)`: if a pending invitation already exists
+  it is reused and a resend email is fired (response status 200).
+  Otherwise a new invitation is created (status 201). Body must include
+  `role` (cannot be OWNER) and at least one of `invitee_email` or
+  `invitee_phone`. `invitee_first_name`, `invitee_last_name` and
+  `job_title` are optional prefills.
 script:
   tests: |-
-    test("Status is 201", function() {
-      expect(res.getStatus()).to.equal(201);
+    test("Status is 200 or 201", function() {
+      expect(res.getStatus()).to.be.oneOf([200, 201]);
     });
 
     test("Response has id", function() {

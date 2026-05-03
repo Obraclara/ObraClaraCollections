@@ -37,6 +37,11 @@ examples:
           "profile_image": "",
           "date_of_birth": "",
           "role": "",
+          "preferences": {
+            "notifications_enabled": true,
+            "language": "es",
+            "timezone": "America/Mexico_City"
+          },
           "created": ""
         }
 script:

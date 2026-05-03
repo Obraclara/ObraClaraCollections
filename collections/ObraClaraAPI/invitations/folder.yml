@@ -7,7 +7,25 @@ request:
   auth: inherit
 
 docs: |-
-  Project invitation system. OWNER only can create/cancel.
-  Token-based (64 chars, auto-generated). Expires in 7 days.
-  Flow: OWNER creates -> shares link -> invitee GET public info -> POST accept (authenticated).
-  Role cannot be OWNER. Accepting creates a ProjectParticipant.
+  Project invitation system. OWNER only can list, create or cancel within a
+  project.
+
+  Each invitation carries a long URL-safe `token` (deep-link) and a short
+  8-char `code` (manual entry, uppercase alphanumeric without ambiguous
+  chars). Both resolve via the same public lookup. Default expiry is 36
+  hours from creation. Role cannot be OWNER.
+
+  Flow (two paths, same invitation):
+    1. OWNER creates -> backend auto-generates token + code (idempotent on
+       (project, invitee_email/phone)).
+    2. Public GET `/invitations/{identifier}/` returns invitation info plus
+       a `requires_registration` flag.
+    3. Existing user: POST `/invitations/{identifier}/accept/` (auth) ->
+       creates a `ProjectParticipant`.
+       New user: POST `/invitations/{identifier}/redeem/` (public) ->
+       creates the user + accepts atomically, returns JWT pair.
+    4. Inviter or project owner can re-trigger the email via
+       POST `/invitations/{identifier}/resend/`. Rate-limited: 5-min
+       cooldown + 5/day cap per invitation.
+
+  Expired invitations respond `410 Gone` at accept/redeem time.

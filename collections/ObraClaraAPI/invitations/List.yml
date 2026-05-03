@@ -76,29 +76,40 @@ examples:
       type: json
       data: |-
         {
-          "count": 123,
-          "next": "http://api.example.org/accounts/?page=4",
-          "previous": "http://api.example.org/accounts/?page=2",
+          "count": 0,
+          "next": null,
+          "previous": null,
           "results": [
             {
               "id": "",
               "token": "",
+              "code": "",
               "project": "",
               "project_name": "",
-              "role": "owner",
+              "role": "client",
               "role_label": "",
               "job_title": "",
-              "invited_by": "",
+              "invitee_email": "",
+              "invitee_phone": null,
+              "invitee_first_name": "",
+              "invitee_last_name": "",
+              "invited_by": {
+                "id": "",
+                "email": "",
+                "first_name": "",
+                "last_name": "",
+                "profile_image": ""
+              },
               "status": "pending",
-              "accepted_by": "",
+              "accepted_by": null,
               "is_expired": false,
-              "is_usable": false,
+              "is_usable": true,
               "expires_at": "",
               "created": ""
             }
           ]
         }
-docs: List project invitations or create a new one. OWNER only.
+docs: List project invitations. OWNER only. Use POST on the same URL to create or reuse a pending invitation.
 script:
   tests: |-
     test("Status is 200", function() {
