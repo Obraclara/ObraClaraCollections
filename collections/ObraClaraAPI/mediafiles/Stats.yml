@@ -1,0 +1,69 @@
+info:
+  name: Stats
+  type: http
+  seq: 8
+  tags:
+  - mediafiles
+http:
+  method: GET
+  url: '{{baseUrl}}/api/v1/projects/:project_pk/media-files/stats/'
+  params:
+  - name: project_pk
+    value: ''
+    type: path
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+examples:
+- name: 200 Response
+  request:
+    url: '{{baseUrl}}/api/v1/projects/:project_pk/media-files/stats/'
+    method: GET
+    params:
+    - name: project_pk
+      value: ''
+      type: path
+  response:
+    status: 200
+    statusText: OK
+    headers:
+    - name: Content-Type
+      value: application/json
+    body:
+      type: json
+      data: |-
+        {
+          "total": 0,
+          "this_week": 0,
+          "by_source_type": {
+            "progress": 0,
+            "expense": 0,
+            "incident": 0,
+            "followup": 0,
+            "project": 0
+          },
+          "by_file_type": {
+            "image": 0,
+            "document": 0
+          }
+        }
+docs: |-
+  Gallery aggregates for a project's media files. Not paginated, ignores list
+  filters. Respects the VIEWER/CLIENT visibility rules from the list endpoint
+  (files whose parent is flagged invisible to the client are excluded).
+  this_week counts files created since Monday 00:00 of the current week
+  (server local timezone). by_file_type is sparse — only buckets with at
+  least one file appear.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

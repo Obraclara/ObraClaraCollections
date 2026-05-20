@@ -1,0 +1,72 @@
+info:
+  name: Delete Preview
+  type: http
+  seq: 9
+  tags:
+  - progress
+http:
+  method: GET
+  url: '{{baseUrl}}/api/v1/projects/:project_pk/progress/:id/delete-preview/'
+  params:
+  - name: project_pk
+    value: ''
+    type: path
+  - name: id
+    value: ''
+    type: path
+    description: UUID of the progress entry.
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+examples:
+- name: 200 Response
+  request:
+    url: '{{baseUrl}}/api/v1/projects/:project_pk/progress/:id/delete-preview/'
+    method: GET
+    params:
+    - name: project_pk
+      value: ''
+      type: path
+    - name: id
+      value: ''
+      type: path
+  response:
+    status: 200
+    statusText: OK
+    headers:
+    - name: Content-Type
+      value: application/json
+    body:
+      type: json
+      data: |-
+        {
+          "links": {
+            "expenses":    {"count": 0, "total_amount": "0.00"},
+            "incidents":   {"count": 0},
+            "media_files": {"count": 0}
+          },
+          "warnings": [],
+          "defaults": {
+            "expenses":    "orphan",
+            "incidents":   "orphan",
+            "media_files": "delete"
+          }
+        }
+docs: |-
+  Cascade preview for soft-deleting a progress entry. Counts and defaults
+  for expenses, incidents, and media_files. expenses.total_amount is
+  included only for the expenses relation. The orphan warning is shown
+  only when the entry has both expenses and a stage. Permission: OWNER only.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });
