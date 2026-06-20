@@ -1,0 +1,46 @@
+info:
+  name: Cancel
+  type: http
+  seq: 9
+  tags:
+    - subscriptions
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/v1/subscriptions/cancel/"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{baseUrl}}/api/v1/subscriptions/cancel/"
+      method: POST
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "detail": "Cancellation scheduled at period end."
+          }
+
+docs: |-
+  Request cancellation of the caller's paid subscription at the provider.
+  Cancels at period end (stays ACTIVE until current_period_end); the actual
+  state change lands asynchronously via the provider webhook. Returns 400 if
+  there is no active paid subscription.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });

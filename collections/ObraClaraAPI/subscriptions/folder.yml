@@ -1,0 +1,19 @@
+info:
+  name: subscriptions
+  type: folder
+  seq: 13
+
+request:
+  auth: inherit
+
+docs: |-
+  Owner-facing billing and plan management (Stripe hosted Checkout).
+  Only the OWNER (professional) pays; clients/collaborators access free.
+
+  Flow: List Plans -> grab a price id -> Create Checkout -> open the
+  returned checkout_url -> pay -> activation lands asynchronously via the
+  Stripe webhook (not by returning to the app), so poll Get Mine until
+  status is "active".
+
+  The webhook endpoint (/webhook/stripe/) is server-to-server (signature
+  verified, auth: none) and is intentionally not included here.

@@ -22,3 +22,5 @@ variables:
     name: supplier_id
   - secret: true
     name: report_configuration_id
+  - secret: true
+    name: price_id

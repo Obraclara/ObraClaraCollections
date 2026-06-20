@@ -1,0 +1,60 @@
+info:
+  name: Create Checkout
+  type: http
+  seq: 5
+  tags:
+    - subscriptions
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/v1/subscriptions/checkout/"
+  body:
+    type: json
+    data: |-
+      {
+        "price_id": "{{price_id}}"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    request:
+      url: "{{baseUrl}}/api/v1/subscriptions/checkout/"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "price_id": ""
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "checkout_url": "https://checkout.stripe.com/c/pay/cs_test_..."
+          }
+
+docs: |-
+  Start a Stripe hosted Checkout session for the given price and return its
+  redirect URL. `price_id` is a PlanPrice UUID (get one from List Plans, it
+  is auto-saved into the price_id env var), NOT the Stripe price_xxx id.
+
+  Open the returned `checkout_url` in a browser and pay with the test card
+  4242 4242 4242 4242 (any future date / any CVC). The subscription is NOT
+  active on return — activation arrives via the Stripe webhook, so poll
+  Get Mine until status is "active".
+
+  Requires the caller to already have a Subscription row (created on signup);
+  returns 400 if there is none.

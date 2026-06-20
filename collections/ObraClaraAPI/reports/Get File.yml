@@ -1,13 +1,13 @@
 info:
-  name: Get
+  name: Get File
   type: http
-  seq: 6
+  seq: 10
   tags:
     - reports
 
 http:
   method: GET
-  url: "{{baseUrl}}/api/v1/projects/:project_pk/reports/:id/"
+  url: "{{baseUrl}}/api/v1/projects/:project_pk/reports/:id/file/"
   params:
     - name: project_pk
       value: "{{project_pk}}"
@@ -27,7 +27,7 @@ settings:
 examples:
   - name: 200 Response
     request:
-      url: "{{baseUrl}}/api/v1/projects/:project_pk/reports/:id/"
+      url: "{{baseUrl}}/api/v1/projects/:project_pk/reports/:id/file/"
       method: GET
       params:
         - name: project_pk
@@ -50,28 +50,21 @@ examples:
             "title": "",
             "period_start": "",
             "period_end": "",
-            "data_snapshot": {
-              "project": {},
-              "team": [],
-              "kpis": {},
-              "progress_entries": [],
-              "expenses": {},
-              "incidents": []
-            },
-            "status": "draft",
-            "visible_to_client": true,
-            "generated_by": {
-              "id": "",
-              "email": "",
-              "first_name": "",
-              "last_name": "",
-              "profile_image": null
-            },
-            "published_at": null,
-            "created": "",
-            "modified": ""
+            "status": "published",
+            "published_at": "",
+            "pdf_file": ""
           }
 
 docs: |-
-  Retrieve a report with its full data_snapshot.
-  VIEWER/CLIENT only see published reports.
+  Lightweight tap-to-download payload: the PDF link plus header metadata, without the heavy data_snapshot of the detail endpoint.
+  VIEWER/CLIENT only see published reports (same role visibility as the report detail).
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

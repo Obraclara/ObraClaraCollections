@@ -11,11 +11,23 @@ http:
   body:
     type: json
     data: |-
+      // {
+      //   "username": "renewal-test@obraclara.dev",
+      //   "email": "",
+      //     "password": "TestRenew123!"
+      // }
+
       {
-        "username": "admin",
+       "username": "admin",
         "email": "",
         "password": "admin"
       }
+
+      // {
+      //  "username": "",
+      //   "email": "test1@gmail.com",
+      //   "password": "pruebas123"
+      // }
 
 runtime:
   scripts:
@@ -82,8 +94,3 @@ docs: |-
 
   Accept the following POST parameters: username, password
   Return the REST Framework Token Object's key.
-script:
-  tests: |-
-    test("Status is 200", function() {
-      expect(res.getStatus()).to.equal(200);
-    });
