@@ -34,7 +34,8 @@ examples:
         {
           "progress_entry": "",
           "supplier": "",
-          "category": "",
+          "base_category": null,
+          "custom_category": null,
           "amount": "",
           "concept": "",
           "date": "",
@@ -53,13 +54,24 @@ examples:
           "id": "",
           "progress_entry": "",
           "supplier": "",
-          "category": "",
+          "category": {
+            "source": "",
+            "code": null,
+            "id": null,
+            "name": "",
+            "image": null
+          },
           "amount": "",
           "concept": "",
           "date": "",
           "visible_to_client": false
         }
-docs: CRUD for expenses scoped to a project.
+docs: |-
+  CRUD for expenses scoped to a project.
+  Set either `base_category` (bundled enum, 1-7) or `custom_category`
+  (project category UUID) — they are mutually exclusive; setting one clears
+  the other. The response `category` is a normalized object
+  `{source, code, id, name, image}` (null when uncategorized).
 script:
   post-response: |-
     const body = res.getBody();

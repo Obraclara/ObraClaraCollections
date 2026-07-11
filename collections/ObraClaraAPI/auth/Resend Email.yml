@@ -1,12 +1,12 @@
 info:
-  name: Verify Email
+  name: Resend Email
   type: http
-  seq: 6
+  seq: 7
   tags:
   - auth
 http:
   method: POST
-  url: '{{baseUrl}}/api/v1/auth/register/verify-email/'
+  url: '{{baseUrl}}/api/v1/auth/register/resend-email/'
   body:
     type: json
   auth: none
@@ -18,13 +18,13 @@ settings:
 examples:
 - name: 200 Response
   request:
-    url: '{{baseUrl}}/api/v1/auth/register/verify-email/'
+    url: '{{baseUrl}}/api/v1/auth/register/resend-email/'
     method: POST
     body:
       type: json
       data: |-
         {
-          "key": ""
+          "email": ""
         }
   response:
     status: 200
@@ -39,9 +39,11 @@ examples:
           "detail": ""
         }
 docs: |-
-  Verifies the email associated with the provided key.
+  Resend the confirmation email to a bare address (post-signup screen).
+  Public. Always answers 200 so it never reveals whether an account exists;
+  a per-address cooldown bounds inbox flooding.
 
-  Accepts the following POST parameter: key.
+  Accepts the following POST parameter: email.
 script:
   tests: |-
     test("Status is 200", function() {

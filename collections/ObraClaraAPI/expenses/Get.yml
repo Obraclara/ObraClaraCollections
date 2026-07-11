@@ -48,7 +48,13 @@ examples:
           "project": "",
           "progress_entry": "",
           "supplier": "",
-          "category": "",
+          "category": {
+            "source": "",
+            "code": null,
+            "id": null,
+            "name": "",
+            "image": null
+          },
           "amount": "",
           "concept": "",
           "date": "",

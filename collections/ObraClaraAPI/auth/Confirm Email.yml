@@ -1,0 +1,52 @@
+info:
+  name: Confirm Email
+  type: http
+  seq: 12
+  tags:
+  - auth
+http:
+  method: GET
+  url: '{{baseUrl}}/api/v1/auth/register/account-confirm-email/:key/'
+  params:
+  - name: key
+    value: ''
+    type: path
+    description: Confirmation key from the verification email link.
+  auth: none
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+examples:
+- name: 302 Response
+  description: Confirms the email on GET, then redirects into the SPA.
+  request:
+    url: '{{baseUrl}}/api/v1/auth/register/account-confirm-email/:key/'
+    method: GET
+    params:
+    - name: key
+      value: ''
+      type: path
+  response:
+    status: 302
+    statusText: Found
+    headers:
+    - name: Location
+      value: ''
+    body:
+      type: text
+      data: ''
+docs: |-
+  Email-confirmation link target (allauth ConfirmEmailView).
+  Public. Confirms the address on GET (ACCOUNT_CONFIRM_EMAIL_ON_GET) and
+  redirects to the SPA; the client never logs in here
+  (ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION is off). Supersedes the old
+  POST register/verify-email/ endpoint.
+
+  Path parameter: key.
+script:
+  tests: |-
+    test("Status is a redirect", function() {
+      expect([200, 301, 302]).to.include(res.getStatus());
+    });

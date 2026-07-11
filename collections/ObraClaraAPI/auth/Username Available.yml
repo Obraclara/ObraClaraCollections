@@ -1,0 +1,60 @@
+info:
+  name: Username Available
+  type: http
+  seq: 14
+  tags:
+  - auth
+http:
+  method: GET
+  url: '{{baseUrl}}/api/v1/auth/username-available/'
+  params:
+  - name: username
+    value: ''
+    type: query
+    description: Username to check for availability.
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+examples:
+- name: 200 Response
+  request:
+    url: '{{baseUrl}}/api/v1/auth/username-available/'
+    method: GET
+    params:
+    - name: username
+      value: ''
+      type: query
+  response:
+    status: 200
+    statusText: OK
+    headers:
+    - name: Content-Type
+      value: application/json
+    body:
+      type: json
+      data: |-
+        {
+          "username": "",
+          "available": true,
+          "suggestions": []
+        }
+docs: |-
+  Live username-availability check for the profile's username picker.
+  Authenticated. Validates the username format, then reports whether it is
+  free; when taken, returns available alternatives. The caller's own current
+  handle reads as available so re-saving it is allowed.
+
+  Accepts the following query parameter: username.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

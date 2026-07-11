@@ -1,12 +1,12 @@
 info:
   name: Resend Verification
   type: http
-  seq: 7
+  seq: 13
   tags:
   - auth
 http:
   method: POST
-  url: '{{baseUrl}}/api/v1/auth/register/resend-email/'
+  url: '{{baseUrl}}/api/v1/auth/resend-verification/'
   body:
     type: json
   auth: none
@@ -16,19 +16,20 @@ settings:
   followRedirects: true
   maxRedirects: 5
 examples:
-- name: 201 Response
+- name: 200 Response
   request:
-    url: '{{baseUrl}}/api/v1/auth/register/resend-email/'
+    url: '{{baseUrl}}/api/v1/auth/resend-verification/'
     method: POST
     body:
       type: json
       data: |-
         {
-          "email": ""
+          "login": "",
+          "password": ""
         }
   response:
-    status: 201
-    statusText: Created
+    status: 200
+    statusText: OK
     headers:
     - name: Content-Type
       value: application/json
@@ -39,9 +40,13 @@ examples:
           "detail": ""
         }
 docs: |-
-  Resends another email to an unverified email.
+  Resend the confirmation email for the account matching the given login
+  credentials. Public but credential-checked (shares the `login` throttle
+  scope). `login` accepts the same identifier as the login endpoint
+  (username or email); demanding the password keeps the address out of the
+  response. Answers the same whether or not the address was already verified.
 
-  Accepts the following POST parameter: email.
+  Accepts the following POST parameters: login, password.
 script:
   tests: |-
     test("Status is 200", function() {

@@ -16,9 +16,15 @@ http:
     value: ''
     type: query
     disabled: true
-  - name: category
+  - name: base_category
     value: ''
     type: query
+    description: Base category enum code (1-7).
+    disabled: true
+  - name: custom_category
+    value: ''
+    type: query
+    description: Custom category UUID (project-specific).
     disabled: true
   - name: date_from
     value: ''
@@ -130,7 +136,13 @@ examples:
           "results": [
             {
               "id": "",
-              "category": "",
+              "category": {
+                "source": "",
+                "code": null,
+                "id": null,
+                "name": "",
+                "image": null
+              },
               "supplier_name": "",
               "amount": "",
               "concept": "",
