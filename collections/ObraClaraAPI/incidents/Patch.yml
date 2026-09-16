@@ -48,7 +48,8 @@ examples:
           "action_plan": "",
           "status": "pending",
           "responsible": "",
-          "progress_entry": ""
+          "progress_entry": "",
+          "edited_at": ""
         }
   response:
     status: 200
@@ -69,7 +70,12 @@ examples:
           "action_plan": "",
           "status": "pending",
           "responsible": "",
-          "progress_entry": ""
+          "progress_entry": "",
+          "created_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": "",
+          "follow_ups_count": 0
         }
 docs: CRUD for incidents scoped to a project.
 script:

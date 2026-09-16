@@ -48,7 +48,8 @@ examples:
           "role_label": "",
           "job_title": "",
           "is_active": false,
-          "joined_at": ""
+          "joined_at": "",
+          "modified": ""
         }
 docs: Retrieve, update, or remove a participant.
 script:

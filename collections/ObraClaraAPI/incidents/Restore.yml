@@ -44,7 +44,6 @@ examples:
       data: |-
         {
           "id": "",
-          "project": "",
           "reported_date": "",
           "priority": "",
           "incident_type": "",
@@ -55,9 +54,10 @@ examples:
           "responsible": "",
           "progress_entry": "",
           "created_by": "",
-          "follow_ups_count": 0,
           "created": "",
-          "modified": ""
+          "edited_at": "",
+          "modified": "",
+          "follow_ups_count": 0
         }
 docs: |-
   Restore a soft-deleted incident. Hard-deleted follow-ups do NOT come back.

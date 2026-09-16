@@ -42,12 +42,13 @@ examples:
         {
           "progress_entry": "",
           "supplier": "",
-          "base_category": null,
+          "base_category": 1,
           "custom_category": null,
           "amount": "",
           "concept": "",
           "date": "",
-          "visible_to_client": false
+          "visible_to_client": false,
+          "edited_at": ""
         }
   response:
     status: 200
@@ -60,25 +61,26 @@ examples:
       data: |-
         {
           "id": "",
+          "project": "",
           "progress_entry": "",
           "supplier": "",
           "category": {
-            "source": "",
-            "code": null,
+            "source": "base",
+            "code": 1,
             "id": null,
-            "name": "",
+            "name": "Materials",
             "image": null
           },
           "amount": "",
           "concept": "",
           "date": "",
-          "visible_to_client": false
+          "visible_to_client": false,
+          "created_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": ""
         }
-docs: |-
-  CRUD for expenses scoped to a project.
-  Set either `base_category` (bundled enum, 1-7) or `custom_category`
-  (project category UUID) — mutually exclusive. The response `category` is a
-  normalized object `{source, code, id, name, image}` (null when uncategorized).
+docs: CRUD for expenses scoped to a project.
 script:
   tests: |-
     test("Status is 200", function() {

@@ -19,8 +19,7 @@ http:
         "stage": "ae8d8fa9-ef7c-4bf7-9ceb-e50a387ae40c",
         "description": "Testin Nots",
         "date": "2026-02-2",
-        "percentage_delta": "1",
-        "visible_to_client": true
+        "percentage_delta": "1"
       }
   auth: inherit
 
@@ -43,11 +42,13 @@ examples:
         type: json
         data: |-
           {
+            "id": "",
+            "expected_created_by": "",
             "stage": "",
             "description": "",
             "date": "",
             "percentage_delta": "",
-            "visible_to_client": false
+            "edited_at": ""
           }
     response:
       status: 201
@@ -59,14 +60,35 @@ examples:
         type: json
         data: |-
           {
+            "id": "",
             "stage": "",
             "description": "",
             "date": "",
             "percentage_delta": "",
-            "visible_to_client": false
+            "accumulated_progress": "",
+            "total_expenses": "",
+            "created_by": "",
+            "created": "",
+            "edited_at": "",
+            "modified": ""
           }
 
-docs: Use InputSerializer for validation, DetailSerializer for response.
+docs: |-
+  Use InputSerializer for validation, DetailSerializer for response.
+
+  Idempotent create. The body may carry its own `id` (UUID v7). Without it,
+  every request creates a new record. A retry with a stored `id` returns 200
+  with the same payload. It skips validation and side effects.
+
+  Optional `expected_created_by` must match the session user.
+
+  Errors:
+      - 400 bad_request: `id` is not a valid UUID v7
+      - 403 owner_mismatch: `expected_created_by` differs from the session user
+      - 409 id_conflict: the `id` belongs to another author or scope
+      - 409 resource_deleted: the `id` is your own soft-deleted record (`details.deleted_at`)
+      - 400 stage_progress_exceeded: the delta pushes the stage past 100%
+        (`details`: stage, base, used, available, percentage_delta)
 script:
   tests: |-
     test("Status is 201", function() {

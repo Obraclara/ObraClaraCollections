@@ -164,7 +164,9 @@ examples:
               "responsible": "",
               "progress_entry": "",
               "created_by": "",
-              "created": ""
+              "created": "",
+              "edited_at": "",
+              "modified": ""
             }
           ]
         }

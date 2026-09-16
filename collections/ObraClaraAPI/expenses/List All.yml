@@ -33,20 +33,15 @@ http:
     type: query
     description: Filtrar por proyecto (UUID).
     disabled: true
-  - name: custom_category_name
+  - name: category_name
     value: ''
     type: query
-    description: Filtrar por nombre de categoría personalizada (case-insensitive).
+    description: Filtrar por nombre de categoría (case-insensitive).
     disabled: true
-  - name: base_category
+  - name: category
     value: ''
     type: query
-    description: Filtrar por categoría base (código enum 1-7).
-    disabled: true
-  - name: custom_category
-    value: ''
-    type: query
-    description: Filtrar por categoría personalizada (UUID).
+    description: Filtrar por categoría (UUID).
     disabled: true
   - name: progress_entry
     value: ''
@@ -105,15 +100,11 @@ examples:
       value: ''
       type: query
       disabled: true
-    - name: custom_category_name
+    - name: category_name
       value: ''
       type: query
       disabled: true
-    - name: base_category
-      value: ''
-      type: query
-      disabled: true
-    - name: custom_category
+    - name: category
       value: ''
       type: query
       disabled: true
@@ -155,18 +146,21 @@ examples:
               "id": "",
               "project": "",
               "category": {
-                "source": "",
-                "code": null,
+                "source": "base",
+                "code": 1,
                 "id": null,
-                "name": "",
+                "name": "Materials",
                 "image": null
               },
               "supplier_name": "",
+              "progress_entry": "",
               "amount": "",
               "concept": "",
               "date": "",
               "visible_to_client": false,
-              "created": ""
+              "created": "",
+              "edited_at": "",
+              "modified": ""
             }
           ]
         }

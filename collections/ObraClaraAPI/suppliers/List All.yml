@@ -78,11 +78,18 @@ examples:
               "id": "",
               "name": "",
               "company": "",
-              "category": "",
+              "category": {
+                "source": "base",
+                "code": 1,
+                "id": null,
+                "name": "Materials",
+                "image": null
+              },
               "email": "",
               "phone": "",
               "image": "",
-              "created": ""
+              "created": "",
+              "modified": ""
             }
           ]
         }

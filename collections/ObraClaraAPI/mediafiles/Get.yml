@@ -55,8 +55,13 @@ examples:
           "expense": "",
           "incident": "",
           "incident_followup": "",
+          "source_type": "",
+          "source_label": "",
+          "thumbnail_url": null,
+          "medium_url": null,
           "uploaded_by": "",
           "created": "",
+          "edited_at": "",
           "modified": ""
         }
 docs: |-

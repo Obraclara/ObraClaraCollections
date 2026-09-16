@@ -83,7 +83,8 @@ examples:
             {
               "id": "",
               "supplier": "",
-              "created": ""
+              "created": "",
+              "modified": ""
             }
           ]
         }

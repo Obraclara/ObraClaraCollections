@@ -53,16 +53,15 @@ examples:
       data: |-
         {
           "id": "",
-          "project": "",
           "stage": "",
           "description": "",
           "date": "",
           "percentage_delta": "0.00",
           "accumulated_progress": "0.00",
           "total_expenses": "0.00",
-          "visible_to_client": false,
           "created_by": "",
           "created": "",
+          "edited_at": "",
           "modified": ""
         }
 docs: |-

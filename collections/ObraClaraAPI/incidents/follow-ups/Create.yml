@@ -38,9 +38,12 @@ examples:
       type: json
       data: |-
         {
+          "id": "",
+          "expected_created_by": "",
           "comment": "",
           "status": "",
-          "visible_to_client": false
+          "visible_to_client": false,
+          "edited_at": ""
         }
   response:
     status: 201
@@ -55,9 +58,25 @@ examples:
           "id": "",
           "comment": "",
           "status": "",
-          "visible_to_client": false
+          "visible_to_client": false,
+          "created_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": ""
         }
-docs: List and create follow-ups for an incident.
+docs: |-
+  List and create follow-ups for an incident.
+
+  Idempotent create. The body may carry its own `id` (UUID v7). Without it,
+  every request creates a new record. A retry with a stored `id` returns 200
+  with the same payload. It skips validation and side effects.
+
+  Optional `expected_created_by` must match the session user.
+
+  Errors:
+      - 400 bad_request: `id` is not a valid UUID v7
+      - 403 owner_mismatch: `expected_created_by` differs from the session user
+      - 409 id_conflict: the `id` belongs to another author or scope
 script:
   tests: |-
     test("Status is 201", function() {

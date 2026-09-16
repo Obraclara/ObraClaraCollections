@@ -93,6 +93,7 @@ examples:
               "visible_to_client": false,
               "created_by": "",
               "created": "",
+              "edited_at": "",
               "modified": ""
             }
           ]

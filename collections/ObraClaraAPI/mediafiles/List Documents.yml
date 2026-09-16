@@ -90,7 +90,11 @@ examples:
               "uploaded_by": "",
               "source_type": "",
               "source_label": "",
-              "created": ""
+              "thumbnail_url": null,
+              "medium_url": null,
+              "created": "",
+              "edited_at": "",
+              "modified": ""
             }
           ]
         }

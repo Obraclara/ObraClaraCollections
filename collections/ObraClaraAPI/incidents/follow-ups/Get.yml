@@ -54,6 +54,7 @@ examples:
           "visible_to_client": false,
           "created_by": "",
           "created": "",
+          "edited_at": "",
           "modified": ""
         }
 docs: Retrieve, update, or delete a follow-up.

@@ -49,11 +49,11 @@ examples:
           "description": "",
           "date": "",
           "percentage_delta": "",
-          "visible_to_client": false,
           "accumulated_progress": "",
           "total_expenses": "",
           "created_by": "",
           "created": "",
+          "edited_at": "",
           "modified": ""
         }
 docs: CRUD for progress entries scoped to a project.

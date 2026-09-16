@@ -122,10 +122,11 @@ examples:
               "description": "",
               "date": "",
               "percentage_delta": "",
-              "visible_to_client": false,
               "accumulated_progress": "",
               "created_by": "",
-              "created": ""
+              "created": "",
+              "edited_at": "",
+              "modified": ""
             }
           ]
         }

@@ -16,15 +16,9 @@ http:
     value: ''
     type: query
     disabled: true
-  - name: base_category
+  - name: category
     value: ''
     type: query
-    description: Base category enum code (1-7).
-    disabled: true
-  - name: custom_category
-    value: ''
-    type: query
-    description: Custom category UUID (project-specific).
     disabled: true
   - name: date_from
     value: ''
@@ -137,18 +131,21 @@ examples:
             {
               "id": "",
               "category": {
-                "source": "",
-                "code": null,
+                "source": "base",
+                "code": 1,
                 "id": null,
-                "name": "",
+                "name": "Materials",
                 "image": null
               },
               "supplier_name": "",
+              "progress_entry": "",
               "amount": "",
               "concept": "",
               "date": "",
               "visible_to_client": false,
-              "created": ""
+              "created": "",
+              "edited_at": "",
+              "modified": ""
             }
           ]
         }

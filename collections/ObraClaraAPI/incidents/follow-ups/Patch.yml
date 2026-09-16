@@ -46,7 +46,8 @@ examples:
         {
           "comment": "",
           "status": "",
-          "visible_to_client": false
+          "visible_to_client": false,
+          "edited_at": ""
         }
   response:
     status: 200
@@ -61,7 +62,11 @@ examples:
           "id": "",
           "comment": "",
           "status": "",
-          "visible_to_client": false
+          "visible_to_client": false,
+          "created_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": ""
         }
 docs: Retrieve, update, or delete a follow-up.
 script:

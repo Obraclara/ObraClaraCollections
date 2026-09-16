@@ -32,13 +32,16 @@ examples:
       type: json
       data: |-
         {
+          "id": "",
+          "expected_uploaded_by": "",
           "file": "",
           "file_type": "image",
           "description": "",
           "progress_entry": "",
           "expense": "",
           "incident": "",
-          "incident_followup": ""
+          "incident_followup": "",
+          "edited_at": ""
         }
   response:
     status: 201
@@ -50,13 +53,25 @@ examples:
       type: json
       data: |-
         {
+          "id": "",
           "file": "",
           "file_type": "image",
+          "original_name": "",
+          "size": 0,
+          "mime_type": "",
           "description": "",
           "progress_entry": "",
           "expense": "",
           "incident": "",
-          "incident_followup": ""
+          "incident_followup": "",
+          "source_type": "",
+          "source_label": "",
+          "thumbnail_url": null,
+          "medium_url": null,
+          "uploaded_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": ""
         }
 docs: |-
   CRUD for media files scoped to a project.
@@ -84,6 +99,17 @@ docs: |-
 
   File metadata (original_name, size, mime_type) is auto-populated
   on create/update from the uploaded file.
+
+  Idempotent create. The body may carry its own `id` (UUID v7). Without it,
+  every request creates a new record. A retry with a stored `id` returns 200
+  with the same payload. It skips validation and side effects.
+
+  Optional `expected_uploaded_by` must match the session user.
+
+  Errors:
+      - 400 bad_request: `id` is not a valid UUID v7
+      - 403 owner_mismatch: `expected_uploaded_by` differs from the session user
+      - 409 id_conflict: the `id` belongs to another author or scope
 script:
   tests: |-
     test("Status is 201", function() {

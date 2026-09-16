@@ -46,7 +46,8 @@ examples:
           "progress_entry": "",
           "expense": "",
           "incident": "",
-          "incident_followup": ""
+          "incident_followup": "",
+          "edited_at": ""
         }
   response:
     status: 200
@@ -58,13 +59,25 @@ examples:
       type: json
       data: |-
         {
+          "id": "",
           "file": "",
           "file_type": "image",
+          "original_name": "",
+          "size": 0,
+          "mime_type": "",
           "description": "",
           "progress_entry": "",
           "expense": "",
           "incident": "",
-          "incident_followup": ""
+          "incident_followup": "",
+          "source_type": "",
+          "source_label": "",
+          "thumbnail_url": null,
+          "medium_url": null,
+          "uploaded_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": ""
         }
 docs: |-
   CRUD for media files scoped to a project.

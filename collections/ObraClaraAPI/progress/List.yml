@@ -89,11 +89,12 @@ examples:
                 "description": "",
                 "date": "",
                 "percentage_delta": "",
-                "visible_to_client": false,
                 "accumulated_progress": "",
                 "total_expenses": "",
                 "created_by": "",
-                "created": ""
+                "created": "",
+                "edited_at": "",
+                "modified": ""
               }
             ]
           }

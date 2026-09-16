@@ -87,7 +87,8 @@ examples:
               "role_label": "",
               "job_title": "",
               "is_active": false,
-              "joined_at": ""
+              "joined_at": "",
+              "modified": ""
             }
           ]
         }

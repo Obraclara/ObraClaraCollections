@@ -44,7 +44,8 @@ examples:
         {
           "id": "",
           "name": "",
-          "image": ""
+          "image": "",
+          "modified": ""
         }
 docs: Retrieve, update, or delete an expense category.
 script:

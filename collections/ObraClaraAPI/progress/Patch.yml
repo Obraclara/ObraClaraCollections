@@ -44,7 +44,7 @@ examples:
           "description": "",
           "date": "",
           "percentage_delta": "",
-          "visible_to_client": false
+          "edited_at": ""
         }
   response:
     status: 200
@@ -56,11 +56,17 @@ examples:
       type: json
       data: |-
         {
+          "id": "",
           "stage": "",
           "description": "",
           "date": "",
           "percentage_delta": "",
-          "visible_to_client": false
+          "accumulated_progress": "",
+          "total_expenses": "",
+          "created_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": ""
         }
 docs: CRUD for progress entries scoped to a project.
 script:

@@ -83,7 +83,8 @@ examples:
               "order": 0,
               "total_progress": "",
               "total_spent": "",
-              "created": ""
+              "created": "",
+              "modified": ""
             }
           ]
         }

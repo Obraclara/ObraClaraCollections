@@ -49,10 +49,10 @@ examples:
           "progress_entry": "",
           "supplier": "",
           "category": {
-            "source": "",
-            "code": null,
+            "source": "base",
+            "code": 1,
             "id": null,
-            "name": "",
+            "name": "Materials",
             "image": null
           },
           "amount": "",
@@ -61,6 +61,7 @@ examples:
           "visible_to_client": false,
           "created_by": "",
           "created": "",
+          "edited_at": "",
           "modified": ""
         }
 docs: CRUD for expenses scoped to a project.

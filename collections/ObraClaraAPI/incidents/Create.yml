@@ -32,6 +32,8 @@ examples:
       type: json
       data: |-
         {
+          "id": "",
+          "expected_created_by": "",
           "reported_date": "",
           "priority": "high",
           "incident_type": "materials",
@@ -40,7 +42,8 @@ examples:
           "action_plan": "",
           "status": "pending",
           "responsible": "",
-          "progress_entry": ""
+          "progress_entry": "",
+          "edited_at": ""
         }
   response:
     status: 201
@@ -61,9 +64,27 @@ examples:
           "action_plan": "",
           "status": "pending",
           "responsible": "",
-          "progress_entry": ""
+          "progress_entry": "",
+          "created_by": "",
+          "created": "",
+          "edited_at": "",
+          "modified": "",
+          "follow_ups_count": 0
         }
-docs: CRUD for incidents scoped to a project.
+docs: |-
+  CRUD for incidents scoped to a project.
+
+  Idempotent create. The body may carry its own `id` (UUID v7). Without it,
+  every request creates a new record. A retry with a stored `id` returns 200
+  with the same payload. It skips validation and side effects.
+
+  Optional `expected_created_by` must match the session user.
+
+  Errors:
+      - 400 bad_request: `id` is not a valid UUID v7
+      - 403 owner_mismatch: `expected_created_by` differs from the session user
+      - 409 id_conflict: the `id` belongs to another author or scope
+      - 409 resource_deleted: the `id` is your own soft-deleted record (`details.deleted_at`)
 script:
   post-response: |-
     const body = res.getBody();
