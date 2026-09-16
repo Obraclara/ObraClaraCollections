@@ -16,7 +16,11 @@ http:
     value: ''
     type: query
     disabled: true
-  - name: category
+  - name: base_category
+    value: ''
+    type: query
+    disabled: true
+  - name: custom_category
     value: ''
     type: query
     disabled: true
@@ -75,7 +79,11 @@ examples:
       value: ''
       type: query
       disabled: true
-    - name: category
+    - name: base_category
+      value: ''
+      type: query
+      disabled: true
+    - name: custom_category
       value: ''
       type: query
       disabled: true

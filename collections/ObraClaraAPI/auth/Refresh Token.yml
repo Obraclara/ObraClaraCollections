@@ -10,7 +10,7 @@ http:
   url: "{{baseUrl}}/api/v1/auth/token/refresh/"
   body:
     type: json
-    data: ""
+  auth: none
 
 runtime:
   scripts:

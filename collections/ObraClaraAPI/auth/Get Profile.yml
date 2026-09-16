@@ -44,6 +44,7 @@ examples:
           },
           "created": ""
         }
+docs: Retrieve the authenticated user profile, including nested preferences.
 script:
   tests: |-
     test("Status is 200", function() {

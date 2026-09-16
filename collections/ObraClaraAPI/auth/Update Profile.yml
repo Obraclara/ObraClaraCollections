@@ -51,6 +51,11 @@ examples:
           "role": "",
           "created": ""
         }
+docs: |-
+  Replace the authenticated user profile (full update). `username` is
+  writable (3-30 chars, `[a-z0-9_.-]`, lowercased, unique case-insensitive);
+  `email` and `role` are read-only. Send as `multipart/form-data` when it
+  carries `profile_image`.
 script:
   tests: |-
     test("Status is 200", function() {

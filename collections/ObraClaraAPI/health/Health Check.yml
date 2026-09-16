@@ -3,7 +3,7 @@ info:
   type: http
   seq: 5
   tags:
-    - reports
+    - health
 
 http:
   method: GET
@@ -57,5 +57,15 @@ examples:
           }
 
 docs: |-
-  List reports for a project.
-  VIEWER/CLIENT only see published reports. OWNER and COLLABORATOR see all.
+  Liveness probe for the container orchestrator. Returns `{"status": "ok"}`.
+  It runs no query, so it stays up while the database is down.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

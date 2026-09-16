@@ -5,3 +5,7 @@ info:
 
 request:
   auth: inherit
+
+docs: |-
+  Liveness probe for the container orchestrator. Served outside `/api/v1/`
+  and it touches no database. Open to everyone, no role applies.

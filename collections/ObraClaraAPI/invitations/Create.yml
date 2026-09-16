@@ -141,6 +141,11 @@ docs: |-
   `invitee_phone`. `invitee_first_name`, `invitee_last_name` and
   `job_title` are optional prefills.
 script:
+  post-response: |-
+    const body = res.getBody();
+    if (body.id) {
+      bru.setEnvVar("invitation_id", body.id);
+    }
   tests: |-
     test("Status is 200 or 201", function() {
       expect(res.getStatus()).to.be.oneOf([200, 201]);

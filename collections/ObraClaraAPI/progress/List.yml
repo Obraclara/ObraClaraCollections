@@ -9,6 +9,16 @@ http:
   method: GET
   url: "{{baseUrl}}/api/v1/projects/:project_pk/progress/"
   params:
+    - name: date_from
+      value: ""
+      type: query
+      description: Fecha mínima (YYYY-MM-DD).
+      disabled: true
+    - name: date_to
+      value: ""
+      type: query
+      description: Fecha máxima (YYYY-MM-DD).
+      disabled: true
     - name: ordering
       value: ""
       type: query
@@ -32,6 +42,11 @@ http:
       type: query
       description: Un término de búsqueda.
       disabled: true
+    - name: stage
+      value: ""
+      type: query
+      description: Filtrar por etapa (UUID).
+      disabled: true
   auth: inherit
 
 settings:
@@ -46,6 +61,16 @@ examples:
       url: "{{baseUrl}}/api/v1/projects/:project_pk/progress/"
       method: GET
       params:
+        - name: date_from
+          value: ""
+          type: query
+          description: Fecha mínima (YYYY-MM-DD).
+          disabled: true
+        - name: date_to
+          value: ""
+          type: query
+          description: Fecha máxima (YYYY-MM-DD).
+          disabled: true
         - name: ordering
           value: ""
           type: query
@@ -68,6 +93,11 @@ examples:
           value: ""
           type: query
           description: Un término de búsqueda.
+          disabled: true
+        - name: stage
+          value: ""
+          type: query
+          description: Filtrar por etapa (UUID).
           disabled: true
     response:
       status: 200
@@ -100,3 +130,13 @@ examples:
           }
 
 docs: CRUD for progress entries scoped to a project.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

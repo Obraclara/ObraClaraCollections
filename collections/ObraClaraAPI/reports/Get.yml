@@ -75,3 +75,13 @@ examples:
 docs: |-
   Retrieve a report with its full data_snapshot.
   VIEWER/CLIENT only see published reports.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

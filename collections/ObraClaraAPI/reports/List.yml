@@ -102,3 +102,13 @@ examples:
 docs: |-
   List reports for a project.
   VIEWER/CLIENT only see published reports. OWNER and COLLABORATOR see all.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

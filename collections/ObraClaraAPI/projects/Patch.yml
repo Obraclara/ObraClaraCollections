@@ -12,10 +12,9 @@ http:
     - name: id
       value: ""
       type: path
-      description: Un Cadena UUID que identifique este project.
+      description: "UUID del project."
   body:
     type: json
-    data: ""
   auth: inherit
 
 settings:
@@ -33,7 +32,7 @@ examples:
         - name: id
           value: ""
           type: path
-          description: Un Cadena UUID que identifique este project.
+          description: "UUID del project."
       body:
         type: json
         data: |-

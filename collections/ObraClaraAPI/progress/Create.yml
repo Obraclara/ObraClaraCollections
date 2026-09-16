@@ -14,13 +14,6 @@ http:
       type: path
   body:
     type: json
-    data: |-
-      {
-        "stage": "ae8d8fa9-ef7c-4bf7-9ceb-e50a387ae40c",
-        "description": "Testin Nots",
-        "date": "2026-02-2",
-        "percentage_delta": "1"
-      }
   auth: inherit
 
 settings:
@@ -90,6 +83,11 @@ docs: |-
       - 400 stage_progress_exceeded: the delta pushes the stage past 100%
         (`details`: stage, base, used, available, percentage_delta)
 script:
+  post-response: |-
+    const body = res.getBody();
+    if (body.id) {
+      bru.setEnvVar("progress_id", body.id);
+    }
   tests: |-
     test("Status is 201", function() {
       expect(res.getStatus()).to.equal(201);

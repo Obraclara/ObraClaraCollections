@@ -33,15 +33,20 @@ http:
     type: query
     description: Filtrar por proyecto (UUID).
     disabled: true
-  - name: category_name
+  - name: custom_category_name
     value: ''
     type: query
-    description: Filtrar por nombre de categoría (case-insensitive).
+    description: Filtrar por nombre de categoría propia (case-insensitive).
     disabled: true
-  - name: category
+  - name: base_category
     value: ''
     type: query
-    description: Filtrar por categoría (UUID).
+    description: Filtrar por categoría base (código numérico).
+    disabled: true
+  - name: custom_category
+    value: ''
+    type: query
+    description: Filtrar por categoría propia (UUID).
     disabled: true
   - name: progress_entry
     value: ''
@@ -100,11 +105,15 @@ examples:
       value: ''
       type: query
       disabled: true
-    - name: category_name
+    - name: custom_category_name
       value: ''
       type: query
       disabled: true
-    - name: category
+    - name: base_category
+      value: ''
+      type: query
+      disabled: true
+    - name: custom_category
       value: ''
       type: query
       disabled: true

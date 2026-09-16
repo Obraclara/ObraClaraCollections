@@ -10,7 +10,6 @@ http:
   url: "{{baseUrl}}/api/v1/projects/"
   body:
     type: json
-    data: ""
   auth: inherit
 
 settings:

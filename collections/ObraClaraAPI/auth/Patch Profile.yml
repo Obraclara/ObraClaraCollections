@@ -61,6 +61,11 @@ examples:
           },
           "created": ""
         }
+docs: |-
+  Partially update the authenticated user profile. Accepts a nested
+  `preferences` object (`notifications_enabled`, `language`, `timezone`),
+  merged onto the existing row. `email` and `role` are read-only. Send as
+  `multipart/form-data` when it carries `profile_image`.
 script:
   tests: |-
     test("Status is 200", function() {

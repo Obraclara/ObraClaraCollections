@@ -24,3 +24,13 @@ variables:
     name: report_configuration_id
   - secret: true
     name: price_id
+  - secret: true
+    name: category_id
+  - secret: true
+    name: progress_id
+  - secret: true
+    name: media_file_id
+  - secret: true
+    name: followup_id
+  - secret: true
+    name: invitation_id

@@ -49,3 +49,13 @@ docs: |-
   Source of truth for the UI: status, can_write (read-only when false),
   and the used/limit usage map. Poll this after Create Checkout until
   status flips to "active". Returns 404 if the account has no subscription.
+script:
+  tests: |-
+    test("Status is 200", function() {
+      expect(res.getStatus()).to.equal(200);
+    });
+
+    test("Response is JSON", function() {
+      const contentType = res.getHeader("Content-Type");
+      expect(contentType).to.contain("application/json");
+    });

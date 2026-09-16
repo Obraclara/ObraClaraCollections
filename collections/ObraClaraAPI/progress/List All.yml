@@ -48,11 +48,6 @@ http:
     type: query
     description: Fecha máxima (YYYY-MM-DD).
     disabled: true
-  - name: visible_to_client
-    value: ''
-    type: query
-    description: Filtrar por visibilidad al cliente (true/false).
-    disabled: true
   auth: inherit
 settings:
   encodeUrl: true
@@ -94,10 +89,6 @@ examples:
       type: query
       disabled: true
     - name: date_to
-      value: ''
-      type: query
-      disabled: true
-    - name: visible_to_client
       value: ''
       type: query
       disabled: true
