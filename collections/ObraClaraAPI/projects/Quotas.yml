@@ -40,7 +40,7 @@ examples:
         type: json
         data: |-
           {
-            "storage_bytes": {
+            "storage_bytes_per_project": {
               "used": 0,
               "limit": null
             },

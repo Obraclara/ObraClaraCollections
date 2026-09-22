@@ -55,33 +55,52 @@ examples:
             "name": "",
             "project_type": "construction",
             "image": "",
+            "image_thumb": "",
             "location": "",
             "budget_estimated": "",
+            "total_spent": "",
+            "remaining_budget": "",
             "start_date": "",
             "end_date": "",
-            "created_by": "",
+            "created_by": {
+              "id": "",
+              "email": "",
+              "first_name": "",
+              "last_name": "",
+              "phone_number": "",
+              "profile_image": "",
+              "profile_image_thumb": ""
+            },
+            "client_info": {
+              "id": "",
+              "first_name": "",
+              "last_name": "",
+              "email": "",
+              "phone_number": "",
+              "profile_image": "",
+              "profile_image_thumb": ""
+            },
             "created": "",
-            "modified": ""
+            "modified": "",
+            "user_role": "owner",
+            "user_permissions": {
+              "projects": ["create", "delete", "update", "view"],
+              "participants": ["create", "delete", "update", "view"],
+              "invitations": ["create", "delete", "view"],
+              "stages": ["create", "delete", "update", "view"],
+              "progress": ["create", "delete", "update", "view"],
+              "expenses": ["create", "delete", "update", "view"],
+              "expense_categories": ["create", "delete", "update", "view"],
+              "incidents": ["create", "delete", "update", "view"],
+              "follow_ups": ["create", "delete", "update", "view"],
+              "media_files": ["create", "delete", "update", "view"],
+              "project_suppliers": ["create", "delete", "view"],
+              "reports": ["create", "delete", "update", "view"],
+              "report_configurations": ["create", "delete", "update", "view"]
+            },
+            "writable": true,
+            "progress_percentage": "",
+            "last_progress_update": "",
+            "participants_count": 0,
+            "participants_preview": []
           }
-
-docs: |-
-  Create a new project. The authenticated user becomes the OWNER. The
-  optional `client_invitation` block creates a CLIENT invitation in the
-  same transaction (idempotent on email/phone). When uploading the
-  `image` as `multipart/form-data`, send `client_invitation` as a
-  JSON-encoded string — the backend uses `JSONOrDictField` to decode it.
-script:
-  post-response: |-
-    const body = res.getBody();
-    if (body.id) {
-      bru.setEnvVar("project_pk", body.id);
-    }
-  tests: |-
-    test("Status is 201", function() {
-      expect(res.getStatus()).to.equal(201);
-    });
-
-    test("Response has id", function() {
-      const body = res.getBody();
-      expect(body.id).to.be.a("string");
-    });

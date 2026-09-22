@@ -44,7 +44,20 @@ examples:
       type: json
       data: |-
         {
-          "supplier_id": ""
+          "id": "",
+          "supplier": {
+            "id": "",
+            "name": "",
+            "company": "",
+            "category": "",
+            "email": "",
+            "phone": "",
+            "image": null,
+            "created": "",
+            "modified": ""
+          },
+          "created": "",
+          "modified": ""
         }
 docs: List or assign suppliers to a project.
 script:

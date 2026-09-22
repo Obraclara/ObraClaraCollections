@@ -65,9 +65,12 @@ examples:
               "email": "",
               "first_name": "",
               "last_name": "",
-              "profile_image": null
+              "phone_number": "",
+              "profile_image": null,
+              "profile_image_thumb": null
             },
             "published_at": null,
+            "pdf_file": null,
             "created": "",
             "modified": ""
           }

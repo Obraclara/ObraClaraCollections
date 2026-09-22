@@ -47,8 +47,14 @@ examples:
           "last_name": "",
           "phone_number": "",
           "profile_image": "",
+          "profile_image_thumb": null,
           "date_of_birth": "",
           "role": "",
+          "preferences": {
+            "notifications_enabled": true,
+            "language": "es",
+            "timezone": "America/Mexico_City"
+          },
           "created": ""
         }
 docs: |-

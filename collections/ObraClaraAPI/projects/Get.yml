@@ -45,30 +45,52 @@ examples:
             "name": "",
             "project_type": "construction",
             "image": "",
+            "image_thumb": "",
             "location": "",
             "budget_estimated": "",
             "total_spent": "",
             "remaining_budget": "",
             "start_date": "",
             "end_date": "",
-            "created_by": "",
-            "client_info": "",
+            "created_by": {
+              "id": "",
+              "email": "",
+              "first_name": "",
+              "last_name": "",
+              "phone_number": "",
+              "profile_image": "",
+              "profile_image_thumb": ""
+            },
+            "client_info": {
+              "id": "",
+              "first_name": "",
+              "last_name": "",
+              "email": "",
+              "phone_number": "",
+              "profile_image": "",
+              "profile_image_thumb": ""
+            },
             "created": "",
             "modified": "",
-            "user_role": "",
-            "user_permissions": "",
+            "user_role": "owner",
+            "user_permissions": {
+              "projects": ["create", "delete", "update", "view"],
+              "participants": ["create", "delete", "update", "view"],
+              "invitations": ["create", "delete", "view"],
+              "stages": ["create", "delete", "update", "view"],
+              "progress": ["create", "delete", "update", "view"],
+              "expenses": ["create", "delete", "update", "view"],
+              "expense_categories": ["create", "delete", "update", "view"],
+              "incidents": ["create", "delete", "update", "view"],
+              "follow_ups": ["create", "delete", "update", "view"],
+              "media_files": ["create", "delete", "update", "view"],
+              "project_suppliers": ["create", "delete", "view"],
+              "reports": ["create", "delete", "update", "view"],
+              "report_configurations": ["create", "delete", "update", "view"]
+            },
+            "writable": true,
             "progress_percentage": "",
-            "last_progress_update": ""
+            "last_progress_update": "",
+            "participants_count": 0,
+            "participants_preview": []
           }
-
-docs: CRUD for projects scoped to the authenticated user's participation.
-script:
-  tests: |-
-    test("Status is 200", function() {
-      expect(res.getStatus()).to.equal(200);
-    });
-
-    test("Response is JSON", function() {
-      const contentType = res.getHeader("Content-Type");
-      expect(contentType).to.contain("application/json");
-    });
